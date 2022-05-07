@@ -1,22 +1,20 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
-import styles from '../styles/Home.module.css';
+import { Header } from '@/components/Header';
 
 const Home: NextPage = () => {
     return (
-        <div className={styles.container}>
-            <Head>
-                <title>COVID occurence map</title>
-                <meta
-                    name="description"
-                    content="COVID occurence map by location."
-                />
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0">
+            <div className="flex h-screen flex-col justify-between">
+                <main>
+                    <Header>
+                        <h1 className="py-10">
+                            COVID occurence map by location
+                        </h1>
+                    </Header>
+                </main>
 
-            <main className={styles.main}></main>
-
-            <footer className={styles.footer}></footer>
+                <footer></footer>
+            </div>
         </div>
     );
 };
