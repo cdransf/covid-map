@@ -3,13 +3,10 @@ import { Header } from '@/components/Header';
 import dynamic from 'next/dynamic';
 
 const Home: NextPage = () => {
-    const Map = dynamic(
-        () => import('@/components/Map'), // replace '@components/map' with your component's location
-        {
-            loading: () => <p>A map is loading</p>,
-            ssr: false, // This line is important. It's what prevents server-side render
-        }
-    );
+    const Map = dynamic(() => import('@/components/Map'), {
+        loading: () => <p>A map is loading</p>,
+        ssr: false,
+    });
 
     return (
         <div className="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0">
