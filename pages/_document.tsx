@@ -5,7 +5,7 @@ class MyDocument extends Document {
         return (
             <Html lang="en" className="scroll-smooth">
                 <Head>
-                    <title>COVID occurence map</title>
+                    <title>COVID occurrence map</title>
                     <meta
                         name="description"
                         content="COVID occurence map by location."
