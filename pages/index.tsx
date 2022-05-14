@@ -19,7 +19,6 @@ const Home: NextPage = () => {
                     </Header>
                     <Map />
                 </main>
-
                 <footer></footer>
             </div>
         </div>
