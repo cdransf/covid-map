@@ -1,6 +1,8 @@
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
+// TODO: replace coordinates with dynamic data
+// TODO: replace popup with dynamic description
 const Map = () => {
     return (
         <MapContainer
