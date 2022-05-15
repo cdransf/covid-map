@@ -6,10 +6,10 @@ const MapWrapper = () => {
     const { response, setUrl } = useJson();
 
     useEffect(() => {
-        setUrl('/api/covid/countries/usa');
+        setUrl('/api/covid/countries/usa'); //TODO make call configurable
     }, [setUrl]);
 
-    let center: number[] = [38, -97];
+    let center: number[] = [38, -97]; //TODO make center configurable
 
     if (response && Object.keys(response).length) {
         center = [response?.countryInfo.lat, response?.countryInfo.long];
