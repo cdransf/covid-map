@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.loading--wrapper {
+    height: 400px;
+    width: 100%;
+    @apply flex flex-col justify-center items-center;
+}
+
+.icon--wrapper__loading svg g {
+    @apply stroke-black dark:stroke-white;
+}
