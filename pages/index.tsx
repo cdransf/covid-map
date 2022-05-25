@@ -1,17 +1,11 @@
 import type { NextPage } from 'next';
 import { Header } from '@/components/Header';
 import dynamic from 'next/dynamic';
-import { Oval } from 'react-loading-icons';
+import { LoadingFrame } from '@/components/loading';
 
 const Home: NextPage = () => {
     const Map = dynamic(() => import('@/components/map/MapWrapper'), {
-        loading: () => (
-            <div className="loading--wrapper">
-                <div className="icon--wrapper__loading">
-                    <Oval />
-                </div>
-            </div>
-        ),
+        loading: () => <LoadingFrame />,
         ssr: false,
     });
 
