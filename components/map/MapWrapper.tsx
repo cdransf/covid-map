@@ -1,19 +1,14 @@
-import { useEffect } from 'react';
 import { useJson } from '@/hooks/useJson';
 import { Map } from './Map';
 
 const MapWrapper = () => {
-    const { response, setUrl } = useJson();
-
-    useEffect(() => {
-        setUrl('/api/covid/countries/usa'); //TODO make call configurable
-    }, [setUrl]);
-
+    const { response, error } = useJson('/api/covid/countries/usa');
     let center: number[] = [38, -97]; //TODO make center configurable
 
-    if (response && Object.keys(response).length) {
+    if (response && Object.keys(response).length)
         center = [response?.countryInfo.lat, response?.countryInfo.long];
-    }
+
+    if (error) return null;
 
     return <Map center={center} />;
 };
