@@ -1,33 +1,42 @@
 import { useJson } from '@/hooks/useJson';
-import useGeolocation from 'react-hook-geolocation';
 import { LoadingFrame } from '@/components/loading';
 import { Map } from './Map';
+import { useGeolocated } from 'react-geolocated';
 
 //TODO pull geolocation up into context wrapper and render map if location is successful
 const MapWrapper = () => {
-    const geolocation = useGeolocation();
+    const {
+        coords,
+        isGeolocationAvailable,
+        isGeolocationEnabled,
+        positionError,
+    } = useGeolocated({
+        positionOptions: {
+            enableHighAccuracy: false,
+        },
+        userDecisionTimeout: 5000,
+    });
     const { response: geoCodeResponse, error: geoCodeError } = useJson(
-        'https://nominatim.openstreetmap.org/reverse',
-        {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                lat: geolocation.latitude,
-                lon: geolocation.longitude,
-            }),
-        }
+        `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${coords?.latitude}&lon=${coords?.longitude}`
     );
-    const { response: covidResponse, error: covidError } = useJson(
-        '/api/covid/countries/usa'
-    );
-    const center: number[] = [geolocation.latitude, geolocation.longitude];
 
-    if (!geoCodeResponse) return <LoadingFrame />;
-    if (geolocation.error || covidError || geoCodeError)
+    const { response: covidResponse, error: covidError } = useJson(
+        `/api/covid/states/${geoCodeResponse?.address?.state?.toLowerCase()}`
+    );
+
+    if (!coords?.latitude || !coords?.longitude) return <LoadingFrame />;
+
+    const center: number[] = [coords?.latitude, coords?.longitude];
+
+    if (positionError || covidError || geoCodeError)
         return <p>Error determining your location.</p>;
 
-    return <Map center={center} />;
+    return (
+        <Map
+            center={center}
+            popupText={`There are ${covidResponse?.todayCases} COVID cases in ${covidResponse?.state} today.`}
+        />
+    );
 };
 
 export default MapWrapper;

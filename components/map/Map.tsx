@@ -7,10 +7,11 @@ interface MapProps {
     zoom?: number;
     scrollWheelZoom?: boolean;
     style?: object;
+    popupText?: string;
 }
 
 export const Map = (props: MapProps) => {
-    const { center, zoom, scrollWheelZoom, style } = props;
+    const { center, zoom, scrollWheelZoom, style, popupText } = props;
 
     return (
         <MapContainer
@@ -21,9 +22,7 @@ export const Map = (props: MapProps) => {
         >
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
             <Marker position={center}>
-                <Popup>
-                    A pretty CSS3 popup. <br /> Easily customizable.
-                </Popup>
+                {popupText ? <Popup>{popupText}</Popup> : null}
             </Marker>
         </MapContainer>
     );
