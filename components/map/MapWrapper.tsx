@@ -3,7 +3,6 @@ import { LoadingFrame } from '@/components/loading';
 import { Map } from './Map';
 import { useGeolocated } from 'react-geolocated';
 
-//TODO pull geolocation up into context wrapper and render map if location is successful
 const MapWrapper = () => {
     const {
         coords,
