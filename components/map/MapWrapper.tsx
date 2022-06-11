@@ -33,7 +33,7 @@ const MapWrapper = () => {
     return (
         <Map
             center={center}
-            popupText={`There are ${covidResponse?.todayCases} COVID cases in ${covidResponse?.state} today.`}
+            popupText={`There are ${covidResponse?.active} active COVID cases in ${covidResponse?.state} today.`}
         />
     );
 };
