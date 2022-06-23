@@ -2,6 +2,7 @@ import { useJson } from '@/hooks/useJson';
 import { LoadingFrame } from '@/components/loading';
 import { Map } from './Map';
 import { useGeolocated } from 'react-geolocated';
+import { DropDown } from '@/components/inputs';
 
 const MapWrapper = () => {
     const {
@@ -23,6 +24,8 @@ const MapWrapper = () => {
         `/api/covid/states/${geoCodeResponse?.address?.state?.toLowerCase()}`
     );
 
+    const { response: countryResponse, error: countriesError } = useJson('/data/countries-states.json');
+
     if (!coords?.latitude || !coords?.longitude) return <LoadingFrame />;
 
     const center: number[] = [coords?.latitude, coords?.longitude];
@@ -31,10 +34,13 @@ const MapWrapper = () => {
         return <p>Error determining your location.</p>;
 
     return (
-        <Map
-            center={center}
-            popupText={`There are ${covidResponse?.active} active COVID cases in ${covidResponse?.state} today.`}
-        />
+        <>
+            <DropDown values={countryResponse.countries} />
+            <Map
+                center={center}
+                popupText={`There are ${covidResponse?.active} active COVID cases in ${covidResponse?.state} today.`}
+            />
+        </>
     );
 };
 

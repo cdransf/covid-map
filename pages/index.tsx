@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import { Header } from '@/components/Header';
 import dynamic from 'next/dynamic';
 import { LoadingFrame } from '@/components/loading';
+import { DropDown } from '@/components/inputs';
 
 const Home: NextPage = () => {
     const Map = dynamic(() => import('@/components/map/MapWrapper'), {
@@ -20,7 +21,6 @@ const Home: NextPage = () => {
                     </Header>
                     <Map />
                 </main>
-                <footer></footer>
             </div>
         </div>
     );

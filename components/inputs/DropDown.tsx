@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from 'react';
 
 type DropDownProps = {
-    countries: string[];
-    showDropDown: boolean;
-    toggleDropDown: Function;
-    countrySelection: Function;
+    values: object[]; //TODO implement as a generic
+    valueSelection?: Function; //TODO make required
 };
 
-const DropDown: React.FunctionComponent<DropDownProps> = ({
-    countries;
-    countrySelection,
-}: DropDownProps): JSX.Element => {
+export const DropDown: React.FunctionComponent<DropDownProps> = ({
+    values,
+    valueSelection,
+}: DropDownProps) => {
     const [showDropDown, setShowDropDown] = useState<boolean>(false);
 
-
-    const onClickHandler = (country: string): void => {
-        countrySelection(country);
+    const onClickHandler = (value: string): void => {
+        valueSelection?.(value);
     };
 
     useEffect(() => {
@@ -24,25 +21,26 @@ const DropDown: React.FunctionComponent<DropDownProps> = ({
 
     return (
         <>
-            <div className={showDropDown ? 'dropdown' : 'dropdown active'}>
-                {contries.map(
-                    (country: string, index: number): JSX.Element => {
+            <select className={showDropDown ? 'dropdown' : 'dropdown active'}>
+                {values.map(
+                    (value): JSX.Element => {
                         return (
-                            <p
-                                key={index}
+                            <option
+                                key={value.country}
                                 onClick={(): void => {
-                                    onClickHandler(country);
+                                    onClickHandler(value.country);
                                 }}
                             >
-                                {country}
-                            </p>
+                                {value.country}
+                            </option>
                         );
                     }
                 )}
-            </div>
+            </select>
         </>
     );
 };
 
-export default DropDown;
-
+DropDown.defaultProps = {
+    valueSelection: () => {}
+}
