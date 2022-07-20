@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 
-type DropDownProps = {
-    values: object[]; //TODO implement as a generic
-    valueSelection?: Function; //TODO make required
+type DropDownProps<DropdownData> = {
+    values: DropdownData[];
+    valueSelection?: (data: DropdownData) => void;
 };
 
-export const DropDown: React.FunctionComponent<DropDownProps> = ({
+export const DropDown = <DropdownData extends {[key: string]: string}, >({
     values,
     valueSelection,
-}: DropDownProps) => {
+}: DropDownProps<DropdownData>) => {
     const [showDropDown, setShowDropDown] = useState<boolean>(false);
 
-    const onClickHandler = (value: string): void => {
+    const onClickHandler = (value: DropdownData): void => {
         valueSelection?.(value);
     };
 
@@ -22,19 +22,19 @@ export const DropDown: React.FunctionComponent<DropDownProps> = ({
     return (
         <>
             <select className={showDropDown ? 'dropdown' : 'dropdown active'}>
-                {values.map(
-                    (value): JSX.Element => {
-                        return (
+                {values.map((value) =>
+                    <>
+                        {(Object.keys(value).map((key) => {
                             <option
-                                key={value.country}
+                                key={value[key]}
                                 onClick={(): void => {
-                                    onClickHandler(value.country);
+                                    onClickHandler(value);
                                 }}
                             >
-                                {value.country}
+                                {value[key]}
                             </option>
-                        );
-                    }
+                        }))}
+                    </>
                 )}
             </select>
         </>
