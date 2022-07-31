@@ -24,7 +24,7 @@ const MapWrapper = () => {
         `/api/covid/states/${geoCodeResponse?.address?.state?.toLowerCase()}`
     );
 
-    const { response: countryResponse, error: countriesError } = useJson('/data/countries-states.json');
+    const { response: countryResponse } = useJson('/data/countries.json');
 
     if (!coords?.latitude || !coords?.longitude) return <LoadingFrame />;
 

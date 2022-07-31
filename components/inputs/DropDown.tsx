@@ -25,14 +25,15 @@ export const DropDown = <DropdownData extends {[key: string]: string}, >({
                 {values.map((value) =>
                     <>
                         {(Object.keys(value).map((key) => {
-                            <option
+                            return (<option
                                 key={value[key]}
+                                value={value[key].toLowerCase()}
                                 onClick={(): void => {
                                     onClickHandler(value);
                                 }}
                             >
                                 {value[key]}
-                            </option>
+                            </option>)
                         }))}
                     </>
                 )}
